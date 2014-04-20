@@ -5,7 +5,7 @@ jsmmorpg server, for node.js
 
 Q
 require-dir
-
+ws
 
 * for tests, it also requires:
 

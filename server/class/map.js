@@ -2,6 +2,7 @@
 var utils = require("./utils");
 
 function Map(){
+	this.name    = "empty map";
 	this.width   = 0;
 	this.height  = 0;
 	this.depth   = 0;
