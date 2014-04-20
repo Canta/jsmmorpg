@@ -28,7 +28,16 @@ module.exports = GameWorldObjects = (function(){
 	
 	GWO.StaticObject = GWO.SolidObject.extend({});
 	
-	GWO.MovableObject = GWO.StaticObject.extend({});
+	GWO.MobileObject = GWO.StaticObject.extend({
+		
+		move : function(to){
+			if (to instanceof Array || to instanceof Object){
+				this.coords.x = (to[x]) ? to[x] : this.coords.x;
+				this.coords.y = (to[y]) ? to[y] : this.coords.y;
+				this.coords.z = (to[z]) ? to[z] : this.coords.z;
+			}
+		}
+	});
 	
 	
 	return GWO;
