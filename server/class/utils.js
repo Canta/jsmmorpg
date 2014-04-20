@@ -1,9 +1,28 @@
 
-var EventEmitter = require( "events" ).EventEmitter;
+var		EventEmitter 	= require( "events" ).EventEmitter,
+		Class 			= require( "./lib/class.js" ).Class,
+		Q 				= require( "q" );
 
 module.exports = Util = (function(){
 	
 	var ret = function(){};
+	ret.EventEmitter = EventEmitter;
+	ret.Class = Class;
+	ret.Deferred = Q.defer;
+	
+	//Make all functions extendable.
+	Function.prototype.extend = Class.extend;
+	ret.PromisedEmitter = ret.Deferred.extend(new EventEmitter());
+	
+	//Add a new isA function acting like the instanceOf operator, but 
+	//intended for non instantiated classes.
+	//Basically, it does an instanceof against the class prototype.
+	Function.prototype.isA = function(something){
+		return (something === undefined || something === null) ? false : this.prototype instanceof something;
+	};
+	Object.prototype.isA = function(something){
+		return (something === undefined || something === null || this.prototype === undefined) ? false : this.prototype instanceof something;
+	};
 	
 	/**
 	 * mix function
@@ -21,9 +40,15 @@ module.exports = Util = (function(){
 	 * 
 	 * */
 	ret.mix = function(source, dest){
-		for (var k in source.prototype){
-			dest.prototype[k] = source.prototype[k];
+		if (dest.prototype){
+			console.log("mix",source,dest);
+			for (var k in source.prototype){
+				dest.prototype[k] = source.prototype[k];
+			}
+		} else {
+			dest.prototype = ret.copy(source.prototype);
 		}
+		
 		for (var k in source){
 			dest[k] = source[k];
 		}
@@ -31,35 +56,6 @@ module.exports = Util = (function(){
 		return dest;
 	};
 	
-	/**
-	 * def function.
-	 * Helper function for easy and clean class definitions.
-	 * It lets me define properties an methods in a class implementing 
-	 * prototype inheritance in a not so verbose way. 
-	 * 
-	 * @author Daniel Cantarín <omega_canta@yahoo.com>
-	 * 
-	 * @param {Function} parent
-	 * a parent class to be inherited from.
-	 * 
-	 * @param {Object} obj
-	 * a function or object to inherit the parent's properties.
-	 * 
-	 * @this {Function} def
-	 */
-	ret.def = function(parent,obj){
-		
-		obj = new parent();
-		obj = ret.mix(parent, obj);
-		
-		if (typeof parent.on != "function" || typeof parent.emit != "function"){
-			var ee = new EventEmitter();
-			obj = ret.mix(ee,obj);
-		}
-		
-		return obj;
-	};
-
 	/**
 	 * clone function.
 	 * Given an object, it returns a clone of the object.
