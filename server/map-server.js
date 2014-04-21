@@ -23,7 +23,7 @@ wss.on('connection', function(ws) {
 	
 	var x = Math.floor(Math.random() * 1000);
 	var y = Math.floor(Math.random() * 1000);
-	ws.send("{current_map: \"DemoMap\", current_coords:{x:"+x+",y:"+y+"}}");
+	ws.send("{\"current_map\": \"DemoMap\", \"current_coords\":{\"x\":"+x+",\"y\":"+y+"}}");
 });
 
 console.log("Server running.");
