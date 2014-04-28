@@ -1,5 +1,5 @@
-var cls = require("../../class/map");
-var cls = require("../landscape/demobox");
+require("../../class/Map");
+require("../landscape/DemoBoxes");
 
 module.exports = DemoMap = new Map({
 	width  : 1000,

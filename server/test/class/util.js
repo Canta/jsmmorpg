@@ -1,4 +1,4 @@
-var utils = require("../../class/utils.js");
+var utils = require("../../class/Utils");
 
 var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");

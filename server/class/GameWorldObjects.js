@@ -1,5 +1,5 @@
 
-var utils = require("./utils");
+var utils = require("./Utils");
 
 function GameWorldObject(){
 	this.width = 0;
