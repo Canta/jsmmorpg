@@ -23,7 +23,8 @@ var AABB = utils.EventEmitter.extend({
 			throw new Error("GeoStuff.AABB: Point3D expected.");
 		}
 		
-		console.log("aabb.init",from,to);
+		this.points = [];
+		//console.log("aabb.init",from,to);
 		//Given 2 points in 3d space, "from" and "to", we create a box.
 		for (var i = 0; i < 8; i++){
 			var x,y,z;
@@ -32,12 +33,15 @@ var AABB = utils.EventEmitter.extend({
 			x = (i & 1) ? from.x : to.x;
 			this.points.push(new Point3D(x,y,z));
 		}
+		
+		return this;
 	}
 });
 
 var OctreeNode = AABB.extend({
 	children : [],
 	coords : [],
+	points : [],
 	parent : null,
 	
 	root : function(){
@@ -103,8 +107,10 @@ var OctreeNode = AABB.extend({
 		if (coords.length != 8 && coords.length != 2){
 			throw new Error("GeoStuff.OctreeNode: either two or eight coordinates expected. "+coords.length+" received.");
 		}
-		
+		this.points = [];
+		console.log(this.prototype);
 		this._super(coords[0], (coords.length == 8) ? coords[7] : coords[1]);
+		this.points = this.prototype.points.slice(0);
 	}
 });
 
