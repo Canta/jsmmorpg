@@ -59,7 +59,8 @@ Class.extend = function(prop) {
     }
     */
     // Enforce the constructor to be what we expect
-    Class.constructor = Class;
+    Class.prototype.constructor = Class;
+    //Class.constructor = Class;
     
     // And make this class extendable
     Class.extend = arguments.callee;

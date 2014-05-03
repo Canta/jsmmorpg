@@ -1,5 +1,6 @@
 
 var utils = require("./Utils");
+require("./GeoStuff");
 
 function GameWorldObject(){
 	this.width = 0;
@@ -19,7 +20,7 @@ function GameWorldObject(){
 		return this;
 	}
 	
-	return utils.EventEmitter.extend(this);
+	return GeoStuff.AABB.extend(this);
 };
 
 function ImmaterialObject(){

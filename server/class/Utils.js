@@ -119,6 +119,28 @@ module.exports = Util = (function(){
 		return r;
 	};
 	
+	ret.debugging = false;
+	
+	/**
+	 * debug function.
+	 * Prints a message in the console output if the namespace var 
+	 * "debugging" is set to true. 
+	 * 
+	 * @author Daniel Cantarín <omega_canta@yahoo.com>
+	 */
+	
+	ret.debug = function(){
+		if (ret.debugging !== true) {
+			return;
+		}
+		var a = new Date();
+		var output = Array();
+		var str = a.getHours() + ":" + a.getMinutes() + ":" + a.getSeconds() + "." + a.getMilliseconds() + " [ DEBUG ] - ";
+		for (var i in arguments){
+			output.push(arguments[i]);
+		}
+		return console.log(str, output);
+	}
 	
 	return ret;
 })();
