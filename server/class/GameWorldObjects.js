@@ -79,7 +79,8 @@ function MobileObject(){
 						utils.debug("reached " + self.center.to_string() + ". Stopping.");
 						self.stop();
 					} else {
-						utils.debug("moving from " + self.center.to_string() + " + " + JSON.stringify(self.moving_step));
+						self.emit("moving", self.center, self.moving_step);
+						//utils.debug("moving from " + self.center.to_string() + " + " + JSON.stringify(self.moving_step));
 						self.__move(self.moving_step.x, self.moving_step.y, self.moving_step.z);
 						self.__counters.moving -= 100;
 					}
