@@ -142,5 +142,32 @@ module.exports = Util = (function(){
 		return console.log(str, output);
 	}
 	
+	/**
+	 * limit function.
+	 * Given a value, and a max and min possible values, it evaluates if
+	 * the value is inside that range; otherwise, it returns the range 
+	 * limit.
+	 * 
+	 * @author Daniel Cantarín <omega_canta@yahoo.com>
+	 * 
+	 */
+	ret.limit = function(min, max, v) {
+		var ret = (v < min) ? min : v;
+		ret = (v > max) ? max : v;
+		return v;
+	};
+	
+	/**
+	 * inside function.
+	 * Given a value, and a max and min possible values, it evaluates if
+	 * the value is inside that range.
+	 * 
+	 * @author Daniel Cantarín <omega_canta@yahoo.com>
+	 * 
+	 */
+	ret.inside = function(min, max, v) {
+		return v >= min && v <= max ;
+	};
+	
 	return ret;
 })();

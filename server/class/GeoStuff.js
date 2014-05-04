@@ -7,8 +7,34 @@ function Point3D(x,y,z){
 	this.y = y || 0;
 	this.z = z || 0;
 	
+	this.to_string = function(){
+		return "{ x:" + this.x + ", y:" + this.y + ", z: " + this.z + " }";
+	}
+	
+	this.distance = function(to){
+		if (to instanceof Point3D){
+			var x1 = (to.x - this.x);
+			var y1 = (to.y - this.y);
+			var z1 = (to.z - this.z);
+			return Math.sqrt(x1 * x1 + y1 * y1 + z1 * z1);
+		} else { 
+			throw new Error("GeoStuff.distance3d: Point3D expected.");
+		}
+	}
+	
+	this.in_radius = function(point, radius){
+		
+		radius = Math.abs(radius);
+		
+		return  utils.inside(point.x - radius, point.x + radius, this.x) && 
+				utils.inside(point.y - radius, point.y + radius, this.y) &&
+				utils.inside(point.z - radius, point.z + radius, this.z);
+	}
+	
 	return this;
 }
+
+
 
 var AABB = utils.EventEmitter.extend({
 	//Axis Aligned Bounding Box
