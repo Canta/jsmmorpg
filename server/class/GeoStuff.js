@@ -153,7 +153,7 @@ var Octree = utils.EventEmitter.extend({
 		}
 		
 		utils.debug("radius parsed: " + this.radius);
-		
+		this.map = mapa;
 		this.parse_map(mapa);
 		
 	},
