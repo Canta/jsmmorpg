@@ -1,2 +1,2 @@
 //default folder index for mass class importing.
-module.exports = require('require-dir')(); 
+module.exports = require('require-dir')(".",{recurse:true}); 
