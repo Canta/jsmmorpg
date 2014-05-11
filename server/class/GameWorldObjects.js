@@ -34,7 +34,7 @@ function SolidObject(){
 }
 	
 function StaticObject(){ 
-	return new (SolidObject.extend(this))();
+	return SolidObject.extend(this);
 }
 
 function MobileObject(){
