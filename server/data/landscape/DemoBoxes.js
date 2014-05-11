@@ -10,6 +10,6 @@ function MovableDemoBox(){
 }
 
 module.exports = DemoBoxes = {
-	StaticDemoBox = StaticDemoBox(),
-	MovableDemoBox = MovableDemoBox()
+	StaticDemoBox : StaticDemoBox,
+	MovableDemoBox : MovableDemoBox
 };
