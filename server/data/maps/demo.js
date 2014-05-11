@@ -2,13 +2,16 @@ require("../../class/Map");
 require("../landscape/DemoBoxes");
 
 module.exports = DemoMap = new Map({
-	width  : 1000,
-	height : 1000,
-	depth  : 1000,
+	width  : 1000000,
+	height : 100000,
+	depth  : 1000000,
+	name   : "DemoMap",
 	statics: [
-		new DemoBoxes.StaticDemoBox({x:100, y:100, z:0})
+		new DemoBoxes.StaticDemoBox({x:100, y:0, z:100})
 	],
-	mobiles: [],
+	mobiles: [
+		new DemoBoxes.MovableDemoBox({x:500, y:0, z:250})
+	],
 	npcs   : [],
 	mobs   : []
 });
