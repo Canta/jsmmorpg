@@ -34,30 +34,29 @@ function Point3D(x,y,z){
 	return this;
 }
 
-
-
-var AABB = utils.EventEmitter.extend({
-	//Axis Aligned Bounding Box
+var Area = utils.EventEmitter.extend({
 	points : [],
+	nodes  : [],
 	center : null,
 	radius : null,
 	
 	init : function(center, radius){
-		//from and to are supossed to be points
-		if (!(typeof center === "object" && center instanceof Point3D)){
-			throw new Error("GeoStuff.AABB: Point3D expected.");
-		}
+		utils.debug("Area: radius passed: " + radius);
 		
-		utils.debug("aabb: radius passed: " + radius);
+		this.points = [];
+		this.center = center;
+		this.radius = radius;
+		
+		utils.debug("Area: radius passed: " + radius);
 		radius = parseFloat(radius);
 		if ( isNaN(radius) || radius <= 0 ){
-			throw new Error("GeoStuff.AABB: positive radius expected, "+radius+" given.");
+			throw new Error("GeoStuff.Area: positive radius expected, "+radius+" given.");
 		}
 		
 		this.points = [];
 		this.center = center;
 		this.radius = radius;
-		utils.debug("aabb.init",center,radius);
+		utils.debug("Area.init",center,radius);
 		//Given a point in 3d space and a radius, we create a box.
 		for (var i = 0; i < 8; i++){
 			var x,y,z;
@@ -65,22 +64,48 @@ var AABB = utils.EventEmitter.extend({
 			y = (i & 2) ? center.y + radius : center.y - radius;
 			x = (i & 1) ? center.x + radius : center.x - radius;
 			
-			utils.debug("aabb.point["+i+"]: " + x + "," + y + "," + z);
+			utils.debug("Area.point["+i+"]: " + x + "," + y + "," + z);
 			this.points.push(new Point3D(x,y,z));
 		}
+		
+	},
+	
+	on : function(name,arg){
+		if (name.toLowerCase() == "enter_player"){
+			var arg2 = function(player){
+				if (arg instanceof Array){
+					for(var i in arg){
+						arg[i](player);
+					}
+				} else {
+					//function assumed
+					arg(player);
+				}
+			}
+			for (var i in this.nodes){
+				this.nodes[i].on(name.toLowerCase(),arg2);
+			}
+		} else {
+			this._super(name,arg);
+		}
+	}
+	
+});
+
+var AABB = Area.extend({
+	//Axis Aligned Bounding Box
+	
+	init : function(center, radius){
+		//from and to are supossed to be points
+		if (!(typeof center === "object" && center instanceof Point3D)){
+			throw new Error("GeoStuff.AABB: Point3D expected.");
+		}
+		
+		this._super(center,radius);
 		
 		return this;
 	}
 });
-
-function Area(){
-	this.points = [];
-	this.notify = function(callback){
-		
-	};
-	
-	return this;
-}
 
 var Octree = utils.EventEmitter.extend({
 	max_depth      : 16,
@@ -89,8 +114,26 @@ var Octree = utils.EventEmitter.extend({
 	center         : null,
 	radius         : null,
 	
-	get_area_nodes : function(point, radius){
+	get_area : function(point, radius){
+		var a = new AABB(point,radius);
+		var found = false, n = null, i = 0, i2 = 0;
+		a.nodes.push(this.find(point)); 
+		for (i in a.points){
+			n = this.find(a.points[i]);
+			
+			if (n instanceof OctreeNode){
+				found = false;
+				for (i2 in a.nodes){
+					if (a.nodes[i2] == n){
+						found = true;
+						break;
+					}
+				}
+				a.nodes.push(n); 
+			}
+		}
 		
+		return a;
 	},
 	
 	init : function(mapa, specs){
