@@ -3,6 +3,16 @@ var		EventEmitter 	= require( "events" ).EventEmitter,
 		Class 			= require( "./lib/class.js" ).Class,
 		Q 				= require( "q" );
 
+EventEmitter.prototype.off = function(name, arg){
+	if (name === undefined){
+		return this.removeAllListeners();
+	} else if (arg === undefined){
+		return this.removeAllListeners(name);
+	} else {
+		return this.removeListener(name,arg);
+	}
+};
+
 module.exports = Util = (function(){
 	
 	var ret = function(){};
