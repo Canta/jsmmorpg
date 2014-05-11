@@ -14,5 +14,9 @@ module.exports = Map = utils.EventEmitter.extend({
 			this[s] = specs[s];
 		}
 		return this;
+	},
+	
+	start : function(){
+		
 	}
 });
