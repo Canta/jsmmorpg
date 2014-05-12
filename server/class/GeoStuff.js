@@ -104,6 +104,20 @@ var AABB = Area.extend({
 		this._super(center,radius);
 		
 		return this;
+	},
+	
+	intersects : function(aabb){
+		if (aabb instanceof AABB){
+			if(aabb.points[0].x > this.points[5].x) return false
+			if(aabb.points[0].y > this.points[5].y) return false
+			if(aabb.points[0].z > this.points[5].z) return false
+			if(aabb.points[5].x < this.points[0].x) return false
+			if(aabb.points[5].y < this.points[0].y) return false
+			if(aabb.points[5].z < this.points[0].z) return false
+			return true
+		} else {
+			throw "GeoStuff.AABB.intersects: AABB expected";
+		}
 	}
 });
 
