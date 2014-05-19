@@ -1,6 +1,9 @@
 
 var utils = require("./Utils");
-var Map = require("./Map");
+var Map   = require("./Map");
+var OIMO  = require("./lib/Oimo.js");
+
+OimoBody  = utils.EventEmitter.extend(new OIMO.Body());
 
 function Point3D(x,y,z){
 	this.x = x || 0;
@@ -34,7 +37,7 @@ function Point3D(x,y,z){
 	return this;
 }
 
-var Area = utils.EventEmitter.extend({
+var Area = OimoBody.extend({
 	points : [],
 	nodes  : [],
 	center : null,

@@ -1,5 +1,5 @@
 var utils = require("../../class/Utils");
-var gwo = require("../../class/GameWorldObjects");
+var gwo   = require("../../class/GameWorldObjects");
 
 function StaticDemoBox(){
 	return gwo.StaticObject.extend(this);

@@ -10,15 +10,22 @@ console.log("Loading classes...");
 var CLASSES = require("./class");
 
 map_server.octrees = [];
+map_server.maps    = [];
 
 console.log("Loading assets...");
 var DATA = require("./data");
 
-for (var i in DATA.maps){
-	if (DATA.maps[i] instanceof CLASSES.Map){
+for (var i in DATA.maps) {
+	if (DATA.maps[i].isA(CLASSES.Map)){
+		/*
 		var o = new CLASSES.GeoStuff.Octree( DATA.maps[i] );
 		map_server.octrees.push(o);
 		map_server.octrees[map_server.octrees.length-1].map.start();
+		*/
+		
+		map_server.maps.push( new DATA.maps[i]() );
+		map_server.maps[map_server.maps.length - 1].start();
+		map_server.maps[map_server.maps.length - 1].on("collision",function(pair){console.log(pair)});
 	}
 }
 
@@ -35,13 +42,15 @@ wss.on('connection', function(ws) {
 		
 	});
 	
-	var x = Math.floor(Math.random() * map_server.octrees[0].map.width);
-	var y = Math.floor(Math.random() * map_server.octrees[0].map.height);
-	var z = Math.floor(Math.random() * map_server.octrees[0].map.depth);
+	var map = map_server.maps[map_server.maps.length - 1];
+	
+	var x = Math.floor(Math.random() * map.width );
+	var y = Math.floor(Math.random() * map.height);
+	var z = Math.floor(Math.random() * map.depth );
 	
 	var start = {
-		current_map    : map_server.octrees[0].map.name,
-		current_coords : {x: x, y: y, z: z}
+		current_map    : map.name,
+		current_coords : {x: 0, y: 0, z: 0}
 	};
 	
 	ws.send( JSON.stringify( start ) );
