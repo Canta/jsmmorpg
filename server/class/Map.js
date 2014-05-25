@@ -32,6 +32,43 @@ module.exports = Map = OimoWorld.extend({
 	stop : function(){
 		clearInterval( this.interval );
 		this.interval = 0;
-	}
+	},
 	
+	get_objects_in_area : function(point, radius){
+		var ret = [];
+		var i   = this.statics.length;
+		var o   = null;
+		
+		while(i--){
+			o = this.statics[i];
+			if (
+				   o.body.position.x <= point.x + radius
+				&& o.body.position.x >= point.x - radius
+				&& o.body.position.y <= point.y + radius
+				&& o.body.position.y >= point.y - radius
+				&& o.body.position.z <= point.z + radius
+				&& o.body.position.z >= point.z - radius
+			){
+				ret.push(o);
+			}
+			
+		}
+		
+		var i   = this.mobiles.length;
+		while(i--){
+			o = this.mobiles[i];
+			if (
+				   o.body.position.x <= point.x + radius
+				&& o.body.position.x >= point.x - radius
+				&& o.body.position.y <= point.y + radius
+				&& o.body.position.y >= point.y - radius
+				&& o.body.position.z <= point.z + radius
+				&& o.body.position.z >= point.z - radius
+			){
+				ret.push(o);
+			}
+		}
+		
+		return ret;
+	}
 });
