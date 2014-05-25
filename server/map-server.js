@@ -25,7 +25,7 @@ for (var i in DATA.maps) {
 		
 		map_server.maps.push( new DATA.maps[i]() );
 		map_server.maps[map_server.maps.length - 1].start();
-		map_server.maps[map_server.maps.length - 1].on("collision",function(pair){console.log(pair)});
+		//map_server.maps[map_server.maps.length - 1].on("collision",function(pair){console.log(pair[0].parent.getMatrix())});
 	}
 }
 
@@ -44,13 +44,16 @@ wss.on('connection', function(ws) {
 	
 	var map = map_server.maps[map_server.maps.length - 1];
 	
-	var x = Math.floor(Math.random() * map.width );
-	var y = Math.floor(Math.random() * map.height);
-	var z = Math.floor(Math.random() * map.depth );
+	var x = Math.floor(Math.random() * 10000);
+	var y = Math.floor(Math.random() * 10000);
+	var z = Math.floor(Math.random() * 10000);
+	
+	objs = map.get_objects_in_area({x: x, y: y, z: x}, 1000);
 	
 	var start = {
 		current_map    : map.name,
-		current_coords : {x: 0, y: 0, z: 0}
+		current_coords : {x: x, y: y, z: z},
+		objects        : objs.length
 	};
 	
 	ws.send( JSON.stringify( start ) );
