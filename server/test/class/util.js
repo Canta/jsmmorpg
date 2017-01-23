@@ -8,25 +8,25 @@ var should = chai.should();
 
 
 var TestClass = utils.EventEmitter.extend({
-	coso  : "coso!\n",
-	coso2 : function(){
-		var d = utils.Deferred();
-		this.emit("coso2");
-		var tmp = function(){
-			console.log("resolve");
-			d.resolve(1);
-		}
-		setTimeout(tmp, 1500);
-		return d.promise;
-	}
+  coso  : "coso!\n",
+  coso2 : function(){
+    var d = utils.Deferred();
+    this.emit("coso2");
+    var tmp = function(){
+      console.log("resolve");
+      d.resolve(1);
+    }
+    setTimeout(tmp, 1500);
+    return d.promise;
+  }
 });
 
 var TestClassDescendant = TestClass.extend({
-	hola:"K ASE",
-	coso2 : function(){
-		console.log("coso2 en test descendant!");
-		return this._super();
-	}
+  hola:"K ASE",
+  coso2 : function(){
+    console.log("coso2 en test descendant!");
+    return this._super();
+  }
 });
 
 
