@@ -4,6 +4,7 @@
   "description": "A basic 3D multiplayer game server.",
   "main": "map-server.js",
   "directories": {
+    "lib": "classes",
     "test": "test"
   },
   "dependencies": {
@@ -11,11 +12,12 @@
     "chai-as-promised": "^4.1.1",
     "chai": "^1.9.1",
     "q": "*",
-    "ws": "*"
+    "ws": "*",
+    "mocha": "*"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/mocha/bin/mocha ./test/all.js"
   },
   "keywords": [
     "3D",
