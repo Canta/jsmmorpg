@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "A basic 3D multiplayer game server.",
+  "main": "map-server.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "require-dir": "^0.1.0",
+    "chai-as-promised": "^4.1.1",
+    "chai": "^1.9.1",
+    "q": "*",
+    "ws": "*"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "3D",
+    "mmorpg",
+    "oimo"
+  ],
+  "author": "Canta <canta@canta.com.ar>",
+  "license": "LGPL-3.0"
+}
