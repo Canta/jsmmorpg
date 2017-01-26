@@ -17,7 +17,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha ./test/all.js"
+    "test": "node_modules/mocha/bin/mocha $(find ./test -type f -name '*.js')"
   },
   "keywords": [
     "3D",
