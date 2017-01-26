@@ -1,7 +1,7 @@
 
-var    EventEmitter   = require( "events" ).EventEmitter,
-    Class       = require( "./lib/class.js" ).Class,
-    Q         = require( "q" );
+var EventEmitter  = require( "events" ).EventEmitter,
+    Class         = require( "./lib/class.js" ).Class,
+    Q             = require( "q" );
 
 EventEmitter.prototype.off = function(name, arg){
   if (name === undefined){

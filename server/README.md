@@ -1,17 +1,19 @@
 jsmmorpg server, for node.js
 =========================
 
-* Requires the following third party libraries:
+An implementation of a pure javascript mmorpg map server.
+It uses websockets for communications, and i've choosen a few years 
+ago Oimo.js for basic server-side physics.
 
-Q
-require-dir
-ws
+The project is basically a few base classes, some map mechanics, 
+physics, and communication for clients. 
 
-* for tests, it also requires:
+The idea is to implement multiple map servers as required, and have 
+some kind of communication between server-side processes. I want to 
+work with the event emitter pattern for all of the objects, so 
+eventually i'll need another process for smart message handling.
 
-mocha
-chai
-chai-as-promised
+I have all the time in the world for this, so i'll let the project to 
+grow to whatever it want, whenever it want.
 
-
-All of those libs should be handled with npm.
+Canta.-

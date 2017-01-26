@@ -1,7 +1,7 @@
-var utils = require("./Utils");
-var OIMO = require("./lib/Oimo.js");
+var utils   = require("./Utils");
+var OIMO    = require("./lib/Oimo.js");
 
-OimoWorld = utils.EventEmitter.extend(new OIMO.World());
+OimoWorld   = utils.EventEmitter.extend(new OIMO.World());
 
 
 module.exports = Map = OimoWorld.extend({
