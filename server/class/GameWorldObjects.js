@@ -22,20 +22,6 @@ function GameWorldObject(){
     return this;
   }
   
-  return new (GeoStuff.AABB.extend(this))();
-};
-
-function ImmaterialObject(){
-  return new (GameWorldObject.extend(this))();
-}
-
-function SolidObject(){ 
-  
-  return new (ImmaterialObject.extend(this))();
-}
-  
-function MobileObject(){
-  
   this.__timers      = {"moving"    : null};
   this.__counters    = {"moving"    : 0};
   this.__status      = {"can_move"  : true};
@@ -104,15 +90,10 @@ function MobileObject(){
     this.emit("stop",this);
   }
   
-  
-  return GameWorldObject.extend(this);
-}
+  return new (GeoStuff.AABB.extend(this))();
+};
 
 
 module.exports = GameWorldObjects = {
-  GameWorldObject: GameWorldObject,
-  ImmaterialObject: ImmaterialObject(),
-  SolidObject: SolidObject(),
-  StaticObject: StaticObject(),
-  MobileObject: MobileObject()
+  GameWorldObject: GameWorldObject
 };
